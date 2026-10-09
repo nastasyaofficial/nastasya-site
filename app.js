@@ -15,3 +15,23 @@ const lightbox = document.querySelector('#lightbox');
 document.querySelectorAll('.mini-gallery img').forEach((image) => image.addEventListener('click', () => { lightbox.querySelector('img').src = image.src; lightbox.setAttribute('aria-hidden', 'false'); }));
 lightbox.addEventListener('click', (event) => { if (event.target === lightbox || event.target.tagName === 'BUTTON') lightbox.setAttribute('aria-hidden', 'true'); });
 document.addEventListener('keydown', (event) => { if (event.key === 'Escape') lightbox.setAttribute('aria-hidden', 'true'); });
+
+// Let the hero portrait gently dissolve as the page scrolls down.
+const heroPhoto = document.querySelector('.hero-photo');
+if (heroPhoto) {
+  let fadeFrame = 0;
+  const updateHeroFade = () => {
+    if (fadeFrame) return;
+    fadeFrame = requestAnimationFrame(() => {
+      const distance = Math.max(260, Math.min(440, window.innerHeight * 0.58));
+      const progress = Math.min(1, Math.max(0, window.scrollY / distance));
+      heroPhoto.style.opacity = String(1 - progress);
+      heroPhoto.style.transform = 'translateY(' + (progress * 18) + 'px)';
+      fadeFrame = 0;
+    });
+  };
+  heroPhoto.style.willChange = 'opacity, transform';
+  window.addEventListener('scroll', updateHeroFade, { passive: true });
+  updateHeroFade();
+}
+
