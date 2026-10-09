@@ -23,10 +23,11 @@ if (heroPhoto) {
   const updateHeroFade = () => {
     if (fadeFrame) return;
     fadeFrame = requestAnimationFrame(() => {
-      const distance = Math.max(260, Math.min(440, window.innerHeight * 0.58));
+      const distance = Math.max(320, Math.min(760, window.innerHeight * 0.9));
       const progress = Math.min(1, Math.max(0, window.scrollY / distance));
       heroPhoto.style.opacity = String(1 - progress);
-      heroPhoto.style.transform = 'translateY(' + (progress * 18) + 'px)';
+      heroPhoto.style.transform = 'translateY(' + (progress * -48) + 'px) scale(' + (1 + progress * 0.08) + ')';
+      heroPhoto.style.filter = 'blur(' + (progress * 8) + 'px)';
       fadeFrame = 0;
     });
   };
