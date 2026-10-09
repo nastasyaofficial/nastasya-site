@@ -5,7 +5,7 @@ Open `index.html` directly, or run `python3 -m http.server 8000` in this folder 
 
 ## Customize
 - Replace the SVG placeholders in `images/` with `.webp`, `.jpg`, or `.png` files and update the three `<img src>` paths in `index.html`.
-- Add links in `app.js`: `telegram: 'https://t.me/yourname'`, `instagram: 'https://instagram.com/yourname'`.
+- Add links in `app.js`: `telegram: 'https://t.me/yourname'`, `instagram: 'https://instagram.com/yourname'`, `threads: 'https://www.threads.net/@yourname'`.
 - Edit all visible copy in `index.html`.
 
 ## Free publishing

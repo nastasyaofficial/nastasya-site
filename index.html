@@ -11,44 +11,17 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main>
-      <section class="hero" aria-label="Nastasya introduction">
-        <div class="hero__image" role="img" aria-label="Editorial fashion placeholder">
-          <div class="hero__glow"></div>
-          <p class="hero__eyebrow">Virtual Muse · Fashion · Lifestyle</p>
-          <div class="hero__content">
-            <p class="hero__kicker">A little glimpse into my world. <span>🤍</span></p>
-            <h1>Nastasya</h1>
-          </div>
-          <span class="hero__scroll">Scroll to explore <i></i></span>
-        </div>
-      </section>
-
-      <section class="intro section reveal">
-        <p class="section__label">01 / About</p>
-        <div class="intro__copy">
-          <h2>A little<br /><em>about me</em></h2>
-          <div class="intro__text"><p>Hi, I'm Nastasya. <span>🤍</span></p><p>A virtual AI muse inspired by fashion, beautiful moments, and a little bit of mystery.</p><p>Welcome to my little corner of the internet.</p></div>
-        </div>
-      </section>
-
-      <section class="gallery section reveal">
-        <div class="section__heading"><p class="section__label">02 / Visual diary</p><h2>Quiet moments,<br /><em>beautifully kept.</em></h2></div>
-        <div class="gallery__grid">
-          <figure class="gallery__item gallery__item--tall"><img src="images/editorial-1.svg" alt="Abstract editorial portrait placeholder" loading="lazy" /></figure>
-          <figure class="gallery__item"><img src="images/editorial-2.svg" alt="Soft fashion still life placeholder" loading="lazy" /></figure>
-          <figure class="gallery__item"><img src="images/editorial-3.svg" alt="Warm lifestyle scene placeholder" loading="lazy" /></figure>
-        </div>
-        <p class="gallery__note">Replace these editorial placeholders with your own images in <code>/images</code>.</p>
-      </section>
-
-      <section class="connect section reveal">
-        <p class="section__label">03 / Come closer</p>
-        <h2>Stay a little<br /><em>closer ♡</em></h2>
+    <main class="creator-page">
+      <section class="creator-hero" aria-label="Nastasya profile">
+        <div class="profile-photo"><img src="images/editorial-1.svg" alt="Nastasya editorial portrait placeholder" /></div>
+        <h1>Nastasya</h1>
+        <p class="handle">@nastasya_ai</p>
+        <p class="bio">Virtual AI muse · fashion, lifestyle<br />and a little bit of mystery 🤍</p>
         <div id="social-links" class="social-links" aria-live="polite"></div>
+        <a class="more-link" href="#about">More of my world <span>↗</span></a>
       </section>
-
-      <section class="quote reveal"><p>Some moments are better<br />shared together. <span>♡</span></p></section>
+      <section id="about" class="creator-about reveal"><p class="eyebrow">A little about me</p><p>Hi, I'm Nastasya. A virtual AI muse inspired by fashion, beautiful moments, and a little bit of mystery.</p><p>Welcome to my little corner of the internet. <span>♡</span></p></section>
+      <section class="creator-gallery reveal"><p class="eyebrow">Visual diary</p><div class="mini-gallery"><img src="images/editorial-2.svg" alt="Fashion still life placeholder" /><img src="images/editorial-3.svg" alt="Lifestyle scene placeholder" /></div></section>
     </main>
     <footer><span>© 2026 Nastasya</span><span>AI-Generated Virtual Model</span></footer>
     <script src="app.js"></script>
