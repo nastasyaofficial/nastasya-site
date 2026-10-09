@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css?v=mobilefix4" />
+    <link rel="stylesheet" href="carousel.css?v=1" />
     <style>
       .creator-hero{min-height:680px}
       .more-link{margin:16px 18px 0}
@@ -37,12 +38,12 @@
       </section>
       <a class="more-link" href="#diary" aria-label="Explore Nastasya visual diary"><img src="photo_2026-10-09 15.31.54.jpeg" alt="Nastasya in a soft white look" /><span>More of me</span></a>
       <section id="about" class="creator-about reveal"><p class="eyebrow">A little about me</p><p>Fashion, beautiful moments, and a little bit of mystery.</p><p>Welcome to my little corner of the internet. <span>♡</span></p></section>
-      <section id="diary" class="creator-gallery reveal"><p class="eyebrow">Visual diary</p><div class="mini-gallery"><img loading="lazy" src="photo_2026-10-09 15.32.36.jpeg" alt="Nastasya in a soft fashion look" /><img loading="lazy" src="photo_2026-10-09 15.31.54.jpeg" alt="Nastasya in an editorial portrait" /><img loading="lazy" src="photo_2026-10-09 15.32.48.jpeg" alt="Nastasya in a relaxed lifestyle scene" /><img loading="lazy" src="photo_2026-10-09 15.31.28.jpeg" alt="Nastasya in a calm bedroom scene" /></div></section>
+      <section id="diary" class="creator-gallery reveal"><p class="eyebrow">Visual diary</p><div class="gallery-carousel" data-carousel><div class="mini-gallery" data-carousel-track tabindex="0" aria-label="Swipe through Nastasya photos"><figure class="gallery-slide"><img loading="lazy" src="photo_2026-10-09 15.32.36.jpeg" alt="Nastasya in a soft fashion look" /></figure><figure class="gallery-slide"><img loading="lazy" src="photo_2026-10-09 15.31.54.jpeg" alt="Nastasya in an editorial portrait" /></figure><figure class="gallery-slide"><img loading="lazy" src="photo_2026-10-09 15.32.48.jpeg" alt="Nastasya in a relaxed lifestyle scene" /></figure><figure class="gallery-slide"><img loading="lazy" src="photo_2026-10-09 15.31.28.jpeg" alt="Nastasya in a calm bedroom scene" /></figure><a class="gallery-slide gallery-teaser" href="https://t.me/+fkCmvZq9PzljMjhi" target="_blank" rel="noopener noreferrer" aria-label="See more photos and updates on Telegram"><span class="teaser-pill">A little preview</span><span class="teaser-title">Want to see more?</span><strong>Join me on Telegram <span aria-hidden="true">↗</span></strong><span class="teaser-note">New photos &amp; little moments</span></a></div><div class="carousel-navigation"><button class="carousel-arrow" type="button" data-carousel-prev aria-label="Previous photo">‹</button><div class="carousel-dots" aria-label="Choose a photo"></div><button class="carousel-arrow" type="button" data-carousel-next aria-label="Next photo">›</button></div><p class="carousel-hint">Swipe to explore</p></div></section>
       <div class="lightbox" id="lightbox" aria-hidden="true"><button aria-label="Close image">×</button><img alt="" /></div>
     </main>
     <a class="telegram-dock" href="https://t.me/+fkCmvZq9PzljMjhi" target="_blank" rel="noopener noreferrer" aria-label="Open Nastasya's Telegram"><span class="telegram-dock__icon" aria-hidden="true">↗</span><span><strong>Мой Telegram</strong><small>Больше меня — там</small></span><span class="telegram-dock__arrow" aria-hidden="true">↗</span></a>
     <footer><span>© 2026 Nastasya</span><span>A little corner of the internet</span></footer>
-    <script src="app.js?v=fade2"></script>
+    <script src="app.js?v=carousel1"></script>
     <script>
       const telegramDock=document.querySelector('.telegram-dock');
       const hero=document.querySelector('.creator-hero');

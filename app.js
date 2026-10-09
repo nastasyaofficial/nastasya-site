@@ -16,6 +16,43 @@ document.querySelectorAll('.mini-gallery img').forEach((image) => image.addEvent
 lightbox.addEventListener('click', (event) => { if (event.target === lightbox || event.target.tagName === 'BUTTON') lightbox.setAttribute('aria-hidden', 'true'); });
 document.addEventListener('keydown', (event) => { if (event.key === 'Escape') lightbox.setAttribute('aria-hidden', 'true'); });
 
+document.querySelectorAll('[data-carousel]').forEach((carousel) => {
+  const track = carousel.querySelector('[data-carousel-track]');
+  const slides = [...track.querySelectorAll('.gallery-slide')];
+  const dots = carousel.querySelector('.carousel-dots');
+  let activeIndex = 0;
+
+  const updateActive = () => {
+    const trackCenter = track.scrollLeft + track.clientWidth / 2;
+    activeIndex = slides.reduce((closest, slide, index) => {
+      const slideCenter = slide.offsetLeft + slide.clientWidth / 2;
+      const bestCenter = slides[closest].offsetLeft + slides[closest].clientWidth / 2;
+      return Math.abs(slideCenter - trackCenter) < Math.abs(bestCenter - trackCenter) ? index : closest;
+    }, 0);
+    [...dots.children].forEach((dot, index) => dot.setAttribute('aria-current', String(index === activeIndex)));
+  };
+
+  slides.forEach((slide, index) => {
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot';
+    dot.type = 'button';
+    dot.setAttribute('aria-label', `Go to photo ${index + 1} of ${slides.length}`);
+    dot.setAttribute('aria-current', String(index === 0));
+    dot.addEventListener('click', () => slides[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }));
+    dots.append(dot);
+  });
+
+  carousel.querySelector('[data-carousel-prev]').addEventListener('click', () => {
+    slides[Math.max(0, activeIndex - 1)].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  });
+  carousel.querySelector('[data-carousel-next]').addEventListener('click', () => {
+    slides[Math.min(slides.length - 1, activeIndex + 1)].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  });
+  track.addEventListener('scroll', updateActive, { passive: true });
+  window.addEventListener('resize', updateActive, { passive: true });
+  updateActive();
+});
+
 // Let the hero portrait gently dissolve as the page scrolls down.
 const heroPhoto = document.querySelector('.hero-photo');
 if (heroPhoto) {
