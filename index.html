@@ -5,28 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Nastasya — fashion, beautiful moments, and a little mystery." />
     <meta name="theme-color" content="#080808" />
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XMT89BCM64"></script>
+    <!-- Analytics loads only after the visitor opts in. -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XMT89BCM64');
-      document.addEventListener('click', (event) => {
-        const link = event.target.closest('a[href*="t.me/"]');
-        if (!link) return;
-        const location = link.matches('.telegram-dock') ? 'sticky_dock'
-          : link.matches('.exclusive-card--hero') ? 'hero_card'
-          : link.matches('.gallery-teaser') ? 'visual_diary_teaser'
-          : link.matches('.social-link--telegram') ? 'social_icon' : 'other';
-        const params = new URLSearchParams(window.location.search);
-        gtag('event', 'telegram_click', {
-          button_location: location,
-          campaign: params.get('utm_campaign') || params.get('from') || 'direct',
-          link_url: link.href,
-          transport_type: 'beacon'
+      (() => {
+        const GA_ID = 'G-XMT89BCM64';
+        const choiceKey = 'nastasya_analytics_consent';
+        const banner = () => document.getElementById('privacy-consent');
+        const loadAnalytics = () => {
+          if (window.nastasyaAnalyticsLoaded) return;
+          window.nastasyaAnalyticsLoaded = true;
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function(){dataLayer.push(arguments);};
+          gtag('js', new Date());
+          gtag('config', GA_ID);
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+          document.head.appendChild(script);
+          document.addEventListener('click', (event) => {
+            const link = event.target.closest && event.target.closest('a[href*="t.me/"]');
+            if (!link) return;
+            const location = link.matches('.telegram-dock') ? 'sticky_dock'
+              : link.matches('.exclusive-card--hero') ? 'hero_card'
+              : link.matches('.gallery-teaser') ? 'visual_diary_teaser'
+              : link.matches('.social-link--telegram') ? 'social_icon' : 'other';
+            const params = new URLSearchParams(window.location.search);
+            gtag('event', 'telegram_click', {
+              button_location: location,
+              campaign: params.get('utm_campaign') || params.get('from') || 'direct',
+              link_url: link.href,
+              transport_type: 'beacon'
+            });
+          }, {capture: true});
+        };
+        const hideBanner = () => { const el = banner(); if (el) el.hidden = true; };
+        window.setAnalyticsConsent = (choice) => {
+          try { localStorage.setItem(choiceKey, choice); } catch (_) {}
+          hideBanner();
+          if (choice === 'accepted') loadAnalytics();
+        };
+        window.openPrivacySettings = () => {
+          try { localStorage.removeItem(choiceKey); } catch (_) {}
+          const el = banner(); if (el) el.hidden = false;
+          window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+        let savedChoice = null;
+        try { savedChoice = localStorage.getItem(choiceKey); } catch (_) {}
+        if (new URLSearchParams(location.search).get('privacy') === '1') savedChoice = null;
+        document.addEventListener('DOMContentLoaded', () => {
+          const el = banner();
+          if (!el) return;
+          if (savedChoice === 'accepted') { el.hidden = true; loadAnalytics(); }
+          else if (savedChoice === 'rejected') el.hidden = true;
+          else el.hidden = false;
         });
-      }, {capture: true});
+      })();
     </script>
     <title>NASTASYA — Virtual Muse</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -35,6 +68,15 @@
     <link rel="stylesheet" href="styles.css?v=mobilefix4" />
     <link rel="stylesheet" href="carousel.css?v=1" />
     <style>
+      .privacy-consent{position:fixed;z-index:40;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));left:14px;width:min(100% - 28px,560px);margin:0 auto;padding:18px;border:1px solid rgba(255,255,255,.16);border-radius:18px;background:rgba(18,18,18,.97);color:#f8f5f2;box-shadow:0 14px 48px #000b;backdrop-filter:blur(18px)}
+      .privacy-consent[hidden]{display:none}
+      .privacy-consent p{margin:0 0 12px;font:13px/1.55 'DM Sans',sans-serif;color:rgba(255,255,255,.78)}
+      .privacy-consent a{color:#fff;text-underline-offset:3px}
+      .privacy-consent__actions{display:flex;flex-wrap:wrap;gap:9px}
+      .privacy-consent__actions button{min-height:42px;padding:10px 14px;border:1px solid rgba(255,255,255,.35);border-radius:999px;background:transparent;color:#fff;font:600 12px 'DM Sans',sans-serif;cursor:pointer}
+      .privacy-consent__actions button:first-child{background:#f4f0ed;color:#111;border-color:#f4f0ed}
+      footer .privacy-settings{border:0;background:none;color:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer;font:inherit}
+      @media(max-width:520px){.privacy-consent{padding:15px}.privacy-consent__actions{display:grid;grid-template-columns:1fr}.privacy-consent__actions button{width:100%}}
       .creator-hero{min-height:680px}
       .more-link{margin:16px 18px 0}
       .telegram-dock{position:fixed;z-index:15;right:16px;bottom:calc(12px + env(safe-area-inset-bottom));left:16px;display:flex;width:min(calc(100% - 32px),390px);min-height:62px;align-items:center;gap:12px;margin:0 auto;padding:8px 14px;border:1px solid rgba(255,255,255,.24);border-radius:18px;background:rgba(24,24,24,.88);color:#fff;text-decoration:none;box-shadow:0 8px 32px #0009;opacity:0;pointer-events:none;transform:translateY(130%);visibility:hidden;backdrop-filter:blur(16px);transition:opacity .25s,transform .3s,visibility .3s}
@@ -65,7 +107,12 @@
       <div class="lightbox" id="lightbox" aria-hidden="true"><button aria-label="Close image">×</button><img alt="" /></div>
     </main>
     <a class="telegram-dock" href="https://t.me/+fkCmvZq9PzljMjhi" target="_blank" rel="noopener noreferrer" aria-label="Open Nastasya's Telegram"><span class="telegram-dock__icon" aria-hidden="true">↗</span><span><strong>Мой Telegram</strong><small>Больше меня — там</small></span><span class="telegram-dock__arrow" aria-hidden="true">↗</span></a>
-    <footer><span>© 2026 Nastasya</span><span>A little corner of the internet</span></footer>
+    <aside class="privacy-consent" id="privacy-consent" role="dialog" aria-labelledby="privacy-consent-title" aria-describedby="privacy-consent-copy" hidden>
+      <p id="privacy-consent-title"><strong>Your privacy matters</strong></p>
+      <p id="privacy-consent-copy">With your permission, Google Analytics helps me understand visits and Telegram link clicks. It stays off unless you choose to allow it. <a href="privacy.html">Privacy details</a></p>
+      <div class="privacy-consent__actions"><button type="button" onclick="setAnalyticsConsent('accepted')">Allow analytics</button><button type="button" onclick="setAnalyticsConsent('rejected')">Only necessary</button></div>
+    </aside>
+    <footer><span>© 2026 Nastasya</span><span>A little corner of the internet</span><a href="privacy.html">Privacy</a><button class="privacy-settings" type="button" onclick="openPrivacySettings()">Cookie settings</button></footer>
     <script src="app.js?v=carousel1"></script>
     <script>
       const telegramDock=document.querySelector('.telegram-dock');
