@@ -25,9 +25,7 @@
           document.addEventListener('click', (event) => {
             const link = event.target.closest && event.target.closest('a[href*="t.me/"]');
             if (!link) return;
-            const location = link.matches('.telegram-dock') ? 'sticky_dock'
-              : link.matches('.exclusive-card--hero') ? 'hero_card'
-              : link.matches('.gallery-teaser') ? 'visual_diary_teaser'
+            const location = link.matches('.gallery-teaser') ? 'visual_diary_teaser'
               : link.matches('.social-link--telegram') ? 'social_icon' : 'other';
             const params = new URLSearchParams(window.location.search);
             gtag('event', 'telegram_click', {
@@ -65,7 +63,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=mobilefix4" />
+    <link rel="stylesheet" href="styles.css?v=link-cleanup3" />
     <link rel="stylesheet" href="carousel.css?v=1" />
     <style>
       .privacy-consent{position:fixed;z-index:40;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));left:14px;width:min(100% - 28px,560px);margin:0 auto;padding:18px;border:1px solid rgba(255,255,255,.16);border-radius:18px;background:rgba(18,18,18,.97);color:#f8f5f2;box-shadow:0 14px 48px #000b;backdrop-filter:blur(18px)}
@@ -79,18 +77,7 @@
       @media(max-width:520px){.privacy-consent{padding:15px}.privacy-consent__actions{display:grid;grid-template-columns:1fr}.privacy-consent__actions button{width:100%}}
       .creator-hero{min-height:680px}
       .more-link{margin:16px 18px 0}
-      .telegram-dock{position:fixed;z-index:15;right:16px;bottom:calc(12px + env(safe-area-inset-bottom));left:16px;display:flex;width:min(calc(100% - 32px),390px);min-height:62px;align-items:center;gap:12px;margin:0 auto;padding:8px 14px;border:1px solid rgba(255,255,255,.24);border-radius:18px;background:rgba(24,24,24,.88);color:#fff;text-decoration:none;box-shadow:0 8px 32px #0009;opacity:0;pointer-events:none;transform:translateY(130%);visibility:hidden;backdrop-filter:blur(16px);transition:opacity .25s,transform .3s,visibility .3s}
-      .telegram-dock.is-visible{opacity:1;pointer-events:auto;transform:translateY(0);visibility:visible}
-      .telegram-dock__icon{display:grid;width:42px;height:42px;flex:0 0 42px;place-items:center;border-radius:50%;background:#2481c7;font-size:22px}
-      .telegram-dock strong,.telegram-dock small{display:block;line-height:1.25}
-      .telegram-dock strong{font-size:14px}
-      .telegram-dock small{margin-top:3px;color:rgba(255,255,255,.67);font-size:11px}
-      .telegram-dock__arrow{margin-left:auto;color:rgba(255,255,255,.72);font-size:19px}
-      .exclusive-card--hero{min-height:132px;margin:14px 0 0;padding:14px 16px;border-radius:14px}
-      .exclusive-card--hero .exclusive-card__tag{min-height:22px;margin-bottom:6px;font-size:9px}
-      .exclusive-card--hero strong{font-size:20px}
-      .exclusive-card--hero .exclusive-card__cta{margin-top:7px;font-size:12px}
-      @media(max-width:699px){.creator-hero{height:clamp(640px,88svh,740px);min-height:640px}.hero-info{inset:auto 20px 30px}.more-link{margin:16px 14px 0}footer{padding-bottom:112px}}
+      @media(max-width:699px){.creator-hero{height:clamp(640px,88svh,740px);min-height:640px}.hero-info{inset:auto 20px 30px}.more-link{margin:16px 14px 0}}
     </style>
   </head>
   <body>
@@ -98,7 +85,6 @@
       <section class="creator-hero" aria-label="Nastasya profile">
         <div class="hero-photo"><img src="photo_2026-10-09 15.32.32.jpeg" alt="Nastasya at a cafe" /><div class="hero-shade"></div></div>
         <div class="hero-info"><h1>Nastasya</h1><p class="handle">@my.naastya</p><p class="bio">Fashion, lifestyle<br />and a little bit of mystery 🤍</p><div id="social-links" class="social-links" aria-label="Social profiles"></div>
-          <a class="exclusive-card exclusive-card--hero" href="https://t.me/+fkCmvZq9PzljMjhi" target="_blank" rel="noopener noreferrer" aria-label="18 plus exclusive content in Telegram"><span class="exclusive-card__copy"><span class="exclusive-card__tag">18+ · PRIVATE</span><strong>A little more, just for you</strong><span class="exclusive-card__cta">Open my Telegram ↗</span></span></a>
         </div>
       </section>
       <a class="more-link" href="#diary" aria-label="Explore Nastasya visual diary"><img src="photo_2026-10-09 15.31.54.jpeg" alt="Nastasya in a soft white look" /><span>More of me</span></a>
@@ -106,7 +92,6 @@
       <section id="diary" class="creator-gallery reveal"><p class="eyebrow">Visual diary</p><div class="gallery-carousel" data-carousel><div class="mini-gallery" data-carousel-track tabindex="0" aria-label="Swipe through Nastasya photos"><figure class="gallery-slide"><img loading="lazy" src="photo_2026-10-09 15.32.36.jpeg" alt="Nastasya in a soft fashion look" /></figure><figure class="gallery-slide"><img loading="lazy" src="photo_2026-10-09 15.31.54.jpeg" alt="Nastasya in an editorial portrait" /></figure><figure class="gallery-slide"><img loading="lazy" src="photo_2026-10-09 15.32.48.jpeg" alt="Nastasya in a relaxed lifestyle scene" /></figure><figure class="gallery-slide"><img loading="lazy" src="photo_2026-10-09 15.31.28.jpeg" alt="Nastasya in a calm bedroom scene" /></figure><a class="gallery-slide gallery-teaser" href="https://t.me/+fkCmvZq9PzljMjhi" target="_blank" rel="noopener noreferrer" aria-label="See more photos and updates on Telegram"><span class="teaser-pill">A little preview</span><span class="teaser-title">Want to see more?</span><strong>Join me on Telegram <span aria-hidden="true">↗</span></strong><span class="teaser-note">New photos &amp; little moments</span></a></div><div class="carousel-navigation"><button class="carousel-arrow" type="button" data-carousel-prev aria-label="Previous photo">‹</button><div class="carousel-dots" aria-label="Choose a photo"></div><button class="carousel-arrow" type="button" data-carousel-next aria-label="Next photo">›</button></div><p class="carousel-hint">Swipe to explore</p></div></section>
       <div class="lightbox" id="lightbox" aria-hidden="true"><button aria-label="Close image">×</button><img alt="" /></div>
     </main>
-    <a class="telegram-dock" href="https://t.me/+fkCmvZq9PzljMjhi" target="_blank" rel="noopener noreferrer" aria-label="Open Nastasya's Telegram"><span class="telegram-dock__icon" aria-hidden="true">↗</span><span><strong>Мой Telegram</strong><small>Больше меня — там</small></span><span class="telegram-dock__arrow" aria-hidden="true">↗</span></a>
     <aside class="privacy-consent" id="privacy-consent" role="dialog" aria-labelledby="privacy-consent-title" aria-describedby="privacy-consent-copy" hidden>
       <p id="privacy-consent-title"><strong>Your privacy matters</strong></p>
       <p id="privacy-consent-copy">With your permission, Google Analytics helps me understand visits and Telegram link clicks. It stays off unless you choose to allow it. <a href="privacy.html">Privacy details</a></p>
@@ -114,17 +99,5 @@
     </aside>
     <footer><span>© 2026 Nastasya</span><span>A little corner of the internet</span><a href="privacy.html">Privacy</a><button class="privacy-settings" type="button" onclick="openPrivacySettings()">Cookie settings</button></footer>
     <script src="app.js?v=carousel1"></script>
-    <script>
-      const telegramDock=document.querySelector('.telegram-dock');
-      const hero=document.querySelector('.creator-hero');
-      if(telegramDock&&hero&&'IntersectionObserver' in window){
-        new IntersectionObserver(([entry])=>{
-          const show=!entry.isIntersecting&&window.scrollY>120;
-          telegramDock.classList.toggle('is-visible',show);
-          telegramDock.setAttribute('aria-hidden',String(!show));
-          telegramDock.tabIndex=show?0:-1;
-        },{threshold:.08}).observe(hero);
-      }
-    </script>
   </body>
 </html>
