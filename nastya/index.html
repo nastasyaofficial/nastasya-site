@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Nastasya — fashion, beautiful moments, and a little mystery." />
+    <meta name="theme-color" content="#080808" />
+    <!-- Analytics loads only after the visitor opts in. -->
+    <script>
+      (() => {
+        const GA_ID = 'G-XMT89BCM64';
+        const choiceKey = 'nastasya_analytics_consent';
+        const banner = () => document.getElementById('privacy-consent');
+        const loadAnalytics = () => {
+          if (window.nastasyaAnalyticsLoaded) return;
+          window.nastasyaAnalyticsLoaded = true;
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function(){dataLayer.push(arguments);};
+          gtag('js', new Date());
+          gtag('config', GA_ID);
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+          document.head.appendChild(script);
+          document.addEventListener('click', (event) => {
+            const link = event.target.closest && event.target.closest('a[href*="t.me/"]');
+            if (!link) return;
+            const location = link.matches('.gallery-teaser') ? 'visual_diary_teaser'
+              : link.matches('.social-link--telegram') ? 'social_icon' : 'other';
+            const params = new URLSearchParams(window.location.search);
+            gtag('event', 'telegram_click', {
+              button_location: location,
+              campaign: params.get('utm_campaign') || params.get('from') || 'direct',
+              link_url: link.href,
+              transport_type: 'beacon'
+            });
+          }, {capture: true});
+        };
+        const hideBanner = () => { const el = banner(); if (el) el.hidden = true; };
+        window.setAnalyticsConsent = (choice) => {
+          try { localStorage.setItem(choiceKey, choice); } catch (_) {}
+          hideBanner();
+          if (choice === 'accepted') loadAnalytics();
+        };
+        window.openPrivacySettings = () => {
+          try { localStorage.removeItem(choiceKey); } catch (_) {}
+          const el = banner(); if (el) el.hidden = false;
+          window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+        let savedChoice = null;
+        try { savedChoice = localStorage.getItem(choiceKey); } catch (_) {}
+        if (new URLSearchParams(location.search).get('privacy') === '1') savedChoice = null;
+        document.addEventListener('DOMContentLoaded', () => {
+          const el = banner();
+          if (!el) return;
+          if (savedChoice === 'accepted') { el.hidden = true; loadAnalytics(); }
+          else if (savedChoice === 'rejected') el.hidden = true;
+          else el.hidden = false;
+        });
+      })();
+    </script>
+    <title>NASTASYA — Virtual Muse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=link-cleanup3" />
+    <link rel="stylesheet" href="carousel.css?v=1" />
+    <style>
+      .privacy-consent{position:fixed;z-index:40;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));left:14px;width:min(100% - 28px,560px);margin:0 auto;padding:18px;border:1px solid rgba(255,255,255,.16);border-radius:18px;background:rgba(18,18,18,.97);color:#f8f5f2;box-shadow:0 14px 48px #000b;backdrop-filter:blur(18px)}
+      .privacy-consent[hidden]{display:none}
+      .privacy-consent p{margin:0 0 12px;font:13px/1.55 'DM Sans',sans-serif;color:rgba(255,255,255,.78)}
+      .privacy-consent a{color:#fff;text-underline-offset:3px}
+      .privacy-consent__actions{display:flex;flex-wrap:wrap;gap:9px}
+      .privacy-consent__actions button{min-height:42px;padding:10px 14px;border:1px solid rgba(255,255,255,.35);border-radius:999px;background:transparent;color:#fff;font:600 12px 'DM Sans',sans-serif;cursor:pointer}
+      .privacy-consent__actions button:first-child{background:#f4f0ed;color:#111;border-color:#f4f0ed}
+      footer .privacy-settings{border:0;background:none;color:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer;font:inherit}
+      @media(max-width:520px){.privacy-consent{padding:15px}.privacy-consent__actions{display:grid;grid-template-columns:1fr}.privacy-consent__actions button{width:100%}}
+      .creator-hero{min-height:680px}
+      .more-link{margin:16px 18px 0}
+      @media(max-width:699px){.creator-hero{height:clamp(640px,88svh,740px);min-height:640px}.hero-info{inset:auto 20px 30px}.more-link{margin:16px 14px 0}}
+    </style>
+  </head>
+  <body>
+    <main class="creator-page">
+      <section class="creator-hero" aria-label="Nastasya profile">
+        <div class="hero-photo"><img src="photo_2026-10-09 15.32.32.jpeg" alt="Nastasya at a cafe" /><div class="hero-shade"></div></div>
+        <div class="hero-info"><h1>Nastasya</h1><p class="handle">@my.naastya</p><p class="bio">Fashion, lifestyle<br />and a little bit of mystery 🤍</p><div id="social-links" class="social-links" aria-label="Social profiles"></div>
+        </div>
+      </section>
+      <a class="more-link" href="#diary" aria-label="Explore Nastasya visual diary"><img src="photo_2026-10-09 15.31.54.jpeg" alt="Nastasya in a soft white look" /><span>More of me</span></a>
+      <section id="about" class="creator-about reveal"><p class="eyebrow">A little about me</p><p>Fashion, beautiful moments, and a little bit of mystery.</p><p>Welcome to my little corner of the internet. <span>♡</span></p></section>
+      <section id="diary" class="creator-gallery reveal"><p class="eyebrow">Visual diary</p><div class="gallery-carousel" data-carousel><div class="mini-gallery" data-carousel-track tabindex="0" aria-label="Swipe through Nastasya photos"><figure class="gallery-slide"><img loading="lazy" src="photo_2026-10-09 15.31.54.jpeg" alt="Nastasya in an editorial portrait" /></figure><figure class="gallery-slide"><img loading="lazy" src="photo_2026-10-09 15.32.48.jpeg" alt="Nastasya in a relaxed lifestyle scene" /></figure><figure class="gallery-slide"><img loading="lazy" src="photo_2026-10-09 15.31.28.jpeg" alt="Nastasya in a calm bedroom scene" /></figure><a class="gallery-slide gallery-teaser" href="https://t.me/+azCG30to7EQzOGQ6" target="_blank" rel="noopener noreferrer" aria-label="See more photos and updates on Telegram"><span class="teaser-pill">A little preview</span><span class="teaser-title">Want to see more?</span><strong>Join me on Telegram <span aria-hidden="true">↗</span></strong><span class="teaser-note">New photos &amp; little moments</span></a></div><div class="carousel-navigation"><button class="carousel-arrow" type="button" data-carousel-prev aria-label="Previous photo">‹</button><div class="carousel-dots" aria-label="Choose a photo"></div><button class="carousel-arrow" type="button" data-carousel-next aria-label="Next photo">›</button></div><p class="carousel-hint">Swipe to explore</p></div></section>
+      <div class="lightbox" id="lightbox" aria-hidden="true"><button aria-label="Close image">×</button><img alt="" /></div>
+    </main>
+    <aside class="privacy-consent" id="privacy-consent" role="dialog" aria-labelledby="privacy-consent-title" aria-describedby="privacy-consent-copy" hidden>
+      <p id="privacy-consent-title"><strong>Your privacy matters</strong></p>
+      <p id="privacy-consent-copy">With your permission, Google Analytics helps me understand visits and Telegram link clicks. It stays off unless you choose to allow it. <a href="privacy.html">Privacy details</a></p>
+      <div class="privacy-consent__actions"><button type="button" onclick="setAnalyticsConsent('accepted')">Allow analytics</button><button type="button" onclick="setAnalyticsConsent('rejected')">Only necessary</button></div>
+    </aside>
+    <footer><span>© 2026 Nastasya</span><span>A little corner of the internet</span><a href="privacy.html">Privacy</a><button class="privacy-settings" type="button" onclick="openPrivacySettings()">Cookie settings</button></footer>
+    <script src="app.js?v=carousel1"></script>
+  </body>
+</html>
