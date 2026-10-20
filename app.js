@@ -1,5 +1,5 @@
 const SOCIAL_LINKS = {
-  telegram: 'https://t.me/+fkCmvZq9PzljMjhi',
+  telegram: 'https://t.me/+azCG30to7EQzOGQ6',
   instagram: 'https://www.instagram.com/my.naastya?psln=dDFhenBoOTdjeGIx&utm_source=qr',
   threads: 'https://www.threads.com/@my.naastya?igshid=NTc4MTIwNjQ2YQ=='
 };
